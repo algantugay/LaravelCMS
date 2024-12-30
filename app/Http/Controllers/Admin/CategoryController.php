@@ -4,20 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Admin\PageController;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        $categories = Category::all();
         return view('admin.categories.create');
     }
 
@@ -25,14 +27,22 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255', // slug alanı zorunlu değil
+            'slug' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        $slug = $request->slug ?: Str::slug($request->name, '-'); // Slug alanı manuel değilse, başlıktan oluştur
+        $slug = $request->slug ?: Str::slug($request->name, '-');
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
     
         $category = Category::create([
             'name' => $request->name,
             'slug' => $slug,
+            'image' => $imagePath,
         ]);
     
         return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla eklendi.');
@@ -51,7 +61,20 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $slug = $request->slug ?: Str::slug($request->name, '-');
+
+        if ($request->hasFile('image')) {
+            // Eski resmi sil
+            if ($category->image) {
+                Storage::delete($category->image);
+            }
+            // Yeni resmi kaydet
+            $imagePath = $request->file('image')->store('categories', 'public');
+            $validatedData['image'] = $imagePath;
+        }
 
         $category->update($validatedData);
 

@@ -1,59 +1,85 @@
 @extends('admin.admin_master')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <!-- Başlık -->
-        <div class="card-header border-0 pt-5">
-            <h3 class="card-title">
-                <span class="card-label fw-bold fs-3">Kategoriler</span>
-            </h3>
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">Yeni Kategori Ekle</a>
-        </div>
-        <!-- İçerik -->
-        <div class="card-body">
-            <table id="kt_datatable" class="table table-row-bordered gy-5">
-                <thead>
-                    <tr class="fw-semibold fs-6 text-muted">
-                        <th>İsim</th>
-                        <th>Oluşturulma Tarihi</th>
-                        <th>Güncellenme Tarihi</th>
-                        <th class="text-center">İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($categories as $category)
-                        <tr>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->created_at->format('d M Y, H:i') }}</td>
-                            <td>{{ $category->updated_at->format('d M Y, H:i') }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Düzenle</a>
-                                <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <div id="kt_content_container" class="container-xxl">
+            <div class="card card-flush">
+                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                    <div class="card-title">
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4"></i>
+                            <input id="category-search" type="text" class="form-control form-control-solid w-250px ps-12" placeholder="Kategori Ara" />
+                        </div>
+                    </div>
+                    <div class="card-toolbar">
+                        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Kategori Ekle</a>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    @if ($categories->isEmpty())
+                        <p class="text-center text-muted">Henüz bir kategori eklenmedi.</p>
+                    @else
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_category_table">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="min-w-250px">Kategori Adı</th>
+                                    <th class="min-w-150px">Görsel</th>
+                                    <th class="text-end min-w-70px">Eylemler</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-semibold text-gray-600" id="category-tbody">
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex">
+                                                <div class="ms-5">
+                                                    <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1 category-name">{{ $category->name }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if($category->image)
+                                                <img src="{{ Storage::url($category->image) }}" alt="Kategori Resmi" width="80" height="80" style="object-fit: cover; border-radius: 5px;">
+                                            @else
+                                                <span class="text-muted">Resim Yok</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-light">Düzenle</a>
+                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-light text-danger">Sil</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                    <div class="d-flex justify-content-center">
+                        {{ $categories->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Datatable initialization
-        var datatable = new KTDatatable({
-            // Customize your datatable configuration here
+    document.getElementById('category-search').addEventListener('input', function() {
+        const searchValue = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#category-tbody tr');
+
+        rows.forEach(row => {
+            const categoryName = row.querySelector('.category-name').textContent.toLowerCase();
+            if (categoryName.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
     });
 </script>
 @endsection
+

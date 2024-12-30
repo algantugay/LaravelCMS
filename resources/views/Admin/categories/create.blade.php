@@ -7,7 +7,7 @@
             <h3 class="card-title">Yeni Kategori Ekle</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.categories.store') }}" method="POST">
+            <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group mb-3">
@@ -26,13 +26,17 @@
                     @enderror
                 </div>
 
+                <div class="form-group mb-3">
+                    <label for="image" class="form-label">Kategori Resmi</label>
+                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                    @error('image')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary">Ekle</button>
             </form>
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script src="{{ asset('assets/js/scripts.js') }}"></script>
 @endsection

@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Message extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'email', 
-        'message',
-        'reply',
+        'page_id',
+        'name',
+        'email',
+        'comment',
+        'status',
+        'rating'
     ];
 }

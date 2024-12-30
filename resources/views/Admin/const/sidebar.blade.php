@@ -86,22 +86,21 @@
                                 <a href="#" class="menu-link px-5" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Çıkış
                                 </a>
-                            </div>
-                            
+                            </div>                            
                             <!--end::Menu item-->
                         </div>
                         <!--end::User account menu-->
-                        <!--end::Action-->
-                    </div>
-                    <!--end::User menu-->
+                    <!--end::Action-->
                 </div>
-                <!--end::Section-->
+                <!--end::User menu-->
             </div>
-            <!--end::Wrapper-->
+            <!--end::Section-->
         </div>
-        <!--end::User-->
+        <!--end::Wrapper-->
     </div>
-    <!--end::Aside Toolbarl-->
+    <!--end::User-->
+</div>
+<!--end::Aside Toolbarl-->
     <!--begin::Aside menu-->
     <div class="aside-menu flex-column-fluid">
         <!--begin::Aside Menu-->
@@ -109,73 +108,94 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
 
-                <!--begin:Menu item-->
+                <!--begin:Kullanıcı Yönetimi-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-abstract-28 fs-2">
+                            <i class="ki-duotone ki-user fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
                         </span>
                         <span class="menu-title">Kullanıcı Yönetimi</span>
+                        <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
                     <!--begin:Menu sub-->
-                    <div class="menu-item">
-                        <!-- Menu Link -->
-                        <a class="menu-link" href="{{ route('admin.users.index') }}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">Kullanıcı Listesi</span>
-                        </a>
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('admin.users.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Kullanıcı Listesi</span>
+                                <span class="menu-badge">
+                                    <span class="badge badge-success"></span>
+                                </span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
                 </div>
-                <!--end:Menu item-->
+                <!--end:Kullanıcı Yönetimi-->
+
+                <!--begin:Sayfa Yönetimi-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-abstract-28 fs-2">
+                            <i class="ki-duotone ki-document fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
                         </span>
                         <span class="menu-title">Sayfa Yönetimi</span>
+                        <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
                     <!--begin:Menu sub-->
-                    <div class="menu-item">
-                        <!-- Menu Link -->
-                        <a class="menu-link" href="{{ route('admin.categories.index') }}">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
-                            </span>
-                            <span class="menu-title">Kategoriler</span>
-                        </a>
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('admin.categories.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Kategoriler</span>
+                                <span class="menu-badge">
+                                    <span class="badge badge-success"></span>
+                                </span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('admin.pages.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Ürünler</span>
+                                <span class="menu-badge">
+                                    <span class="badge badge-success"></span>
+                                </span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
-                                        <!--begin:Menu sub-->
-                                        <div class="menu-item">
-                                            <!-- Menu Link -->
-                                            <a class="menu-link" href="{{ route('admin.pages.index') }}">
-                                                <span class="menu-bullet">
-                                                    <span class="bullet bullet-dot"></span>
-                                                </span>
-                                                <span class="menu-title">Sayfalar</span>
-                                            </a>
-                                        </div>
-                                        <!--end:Menu sub-->
                 </div>
-                <!--begin:Menu item-->
-                
-                <!--end:Menu item-->
- 
+                <!--end:Sayfa Yönetimi-->
 
-                <!--begin:Menu item-->
+                <!--begin:Gelen Kutusu-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
@@ -194,7 +214,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="../../demo8/dist/apps/inbox/listing.html">
+                            <a class="menu-link" href="{{route('admin.messages')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -206,22 +226,47 @@
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
+                    </div>
+                    <!--end:Menu sub-->
+                </div>
+                <!--end:Gelen Kutusu-->
+
+                <!--begin:Yorumlar-->
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <!--begin:Menu link-->
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <!-- Yorumlar için uygun simge -->
+                            <i class="ki-duotone ki-feather fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Yorumlar</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <!--end:Menu link-->
+                    <!--begin:Menu sub-->
+                    <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="../../demo8/dist/apps/inbox/compose.html">
+                            <a class="menu-link" href="{{ route('admin.comments.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Compose</span>
+                                <span class="menu-title">Gelen Yorumlar</span>
+                                <span class="menu-badge">
+                                    <span class="badge badge-success"></span>
+                                </span>
                             </a>
                             <!--end:Menu link-->
                         </div>
                         <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
-                </div>
-                <!--end:Menu item-->
+                </div>                
+                <!--end:Yorumlar-->
             </div>
             <!--end::Menu-->
         </div>

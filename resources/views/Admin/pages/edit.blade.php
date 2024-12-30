@@ -76,6 +76,21 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let contentEditor;
+        ClassicEditor
+            .create(document.querySelector('#content'))
+            .then(editor => {
+                contentEditor = editor;
+            })
+            .catch(error => {
+                console.error('CKEditor Yükleme Hatası:', error);
+            });
+    });
+</script>
+<script src="{{ asset('backend/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('backend/assets/plugins/global/plugins.bundle.js') }}"></script>
+<script src="{{ asset('backend/assets/js/scripts.bundle.js') }}"></script>
 @endsection

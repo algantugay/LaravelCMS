@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::with('category')->paginate(10);
         return view('admin.pages.index', compact('pages'));
     }
 
@@ -30,7 +30,7 @@ class PageController extends Controller
         'content' => 'required|string',
         'status' => 'required|in:draft,published',
         'category_id' => 'required|exists:categories,id',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Resim doğrulama
+        'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
     // Diğer alanları alıyoruz
@@ -38,11 +38,11 @@ class PageController extends Controller
 
     // Resim yükleme işlemi
     if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('pages', 'public'); // 'pages' klasörüne yükle
-        $validated['image_path'] = $path; // image_path alanına kaydediyoruz
+        $path = $request->file('image')->store('pages', 'public');
+        $validated['image_path'] = $path;
     }
 
-    Page::create($validated); // Veritabanına kaydet
+    Page::create($validated);
 
     return redirect()->route('admin.pages.index')->with('success', 'Sayfa başarıyla oluşturuldu.');
     }
@@ -60,19 +60,18 @@ class PageController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'status' => 'required|in:draft,published',
-            'category_id' => 'nullable|integer',
-            'image_path' => 'nullable|image|max:1024',
+            'category_id' => 'required|exists:categories,id',
+            'image_path' => 'nullable|image|max:2048',
         ]);
     
         $page = Page::find($id);
-        $validated = $request->only(['title', 'content', 'status', 'category_id']);
+        $validated = $request->only(['title', 'content', 'status', 'category_id',]);
     
         if ($request->hasFile('image_path')) {
             // Eski resmi sil
             if ($page->image_path && Storage::disk('public')->exists($page->image_path)) {
                 Storage::disk('public')->delete($page->image_path);
             }
-    
             // Yeni resmi yükle
             $path = $request->file('image_path')->store('pages', 'public');
             $validated['image_path'] = $path;

@@ -8,7 +8,7 @@
             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary mb-3">Geri Dön</a>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+            <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -22,6 +22,19 @@
                     <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $category->slug) }}" required>
                 </div>
 
+                <div class="form-group mb-3">
+                    <label for="image" class="form-label">Kategori Resmi</label>
+                    @if($category->image)
+                        <div class="mb-2">
+                            <img src="{{ Storage::url($category->image) }}" alt="Kategori Resmi" width="150">
+                        </div>
+                    @endif
+                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                    @error('image')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                
                 <button type="submit" class="btn btn-primary">Güncelle</button>
             </form>
         </div>
@@ -29,6 +42,3 @@
 </div>
 @endsection
 
-@section('scripts')
-<script src="{{ asset('assets/js/scripts.js') }}"></script>
-@endsection
