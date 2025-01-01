@@ -3,34 +3,16 @@
 @section('admin')
 <div class="container-fluid" id="admin-panel">
     <div class="row">
-        <!-- Toplam Mesaj Kartı -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-info h-100 shadow-sm">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Toplam Mesaj</h5>
-                    <p class="card-text">{{ $messageCount }} Adet</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Yanıtlanmayan Mesaj Kartı -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-warning h-100 shadow-sm">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Yanıtlanmayan Mesaj</h5>
-                    <p class="card-text">{{ $unrepliedCount }} Adet</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Toplam Kullanıcı Kartı -->
         <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-success h-100 shadow-sm">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Toplam Kullanıcı</h5>
-                    <p class="card-text">{{ $userCount }} Adet</p>
+            <a href="{{ route('admin.users.index') }}" class="text-decoration-none">
+                <div class="card text-white bg-success h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Toplam Kullanıcı</h5>
+                        <p class="card-text">{{ $userCount }} Adet</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Aktif Kullanıcı Kartı -->
@@ -42,30 +24,31 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Son 5 Mesaj Listesi -->
-    <div class="card mt-4 shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Son Mesajlar</h5>
-            <a href="{{ route('admin.messages') }}" class="btn btn-sm btn-light">Tümünü Gör</a>
-        </div>
-        <div class="card-body">
-            <div class="list-group">
-                @foreach($recentMessages as $message)
-                    <a href="{{ route('admin.messages', $message->id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 rounded mb-2">
-                        <div>
-                            <strong>{{ $message->name }}</strong>: {{ Str::limit($message->message, 50) }}
-                        </div>
-                        <small class="text-muted">{{ $message->created_at->diffForHumans() }}</small>
-                    </a>
-                @endforeach
+        <!-- Tüm Mesajlar Kartı -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card text-white bg-info h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Tüm Mesajlar</h5>
+                    <p class="card-text">{{ $totalMessagesCount }} Adet</p>
+                </div>
             </div>
+        </div>
+
+        <!-- Okunmamış Mesajlar Kartı -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <a href="{{ route('admin.messages.index') }}" class="text-decoration-none">
+                <div class="card text-white bg-warning h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Okunmamış Mesajlar</h5>
+                        <p class="card-text">{{ $unreadMessagesCount }} Adet</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 
     <div class="row mt-4">
-        
         <!-- Son 5 Yorum Listesi -->
         <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
@@ -88,7 +71,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Son 5 Kullanıcı Listesi -->
         <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
@@ -179,6 +161,15 @@
 
     #admin-panel .text-muted {
         font-size: 12px;
+    }
+
+    #admin-panel .card {
+        margin-bottom: 30px;
+    }
+
+    #admin-panel .card:hover {
+        transform: translateY(-5px);
+        margin-top: 10px;
     }
 </style>
 

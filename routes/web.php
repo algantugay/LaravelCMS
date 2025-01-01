@@ -6,10 +6,10 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\User\TestController;
 use App\Http\Controllers\Frontend\FrontendController;
-
 
 Route::get('/', function(){
     return view('Frontend.index');
@@ -57,29 +57,23 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 });
 
-// Admin Profili
-Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+// İletişim
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
+    Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('admin.messages.show');
+    Route::post('/messages/reply', [MessageController::class, 'reply'])->name('admin.messages.reply');
+    Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('admin.messages.destroyUserMessages');
 });
 
-// Mesajlar kısmı
-Route::prefix('admin')->middleware('admin')->group(function() {
-    // Mesajları listele
-    Route::get('/messages', [ContactController::class, 'listMessages'])->name('admin.messages');
 
-    // Mesajı yanıtla formu göster
-    Route::get('/messages/{id}/reply', [ContactController::class, 'showReplyForm'])->name('admin.messages.reply');
 
-    // Yanıtı gönder
-    Route::put('/messages/{id}/reply', [ContactController::class, 'submitReply'])->name('admin.messages.reply.submit');
 
-    // Mesajı sil
-    Route::delete('/messages/{message}/delete', [ContactController::class, 'destroy'])->name('admin.messages.delete');
-});
+// TEST //
+Route::get('login', [TestController::class, 'showLoginForm'])->name('login');
+Route::post('login', [TestController::class, 'login']);
+Route::get('/logout', [TestController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
-    Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+    Route::get('messages', [TestController::class, 'index'])->name('messages.index');
+    Route::post('messages', [TestController::class, 'send'])->name('messages.send');
 });

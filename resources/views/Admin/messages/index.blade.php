@@ -7,63 +7,49 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <!--begin::Card-->
-            <div class="card shadow-sm">
-                <!--begin::Card header-->
-                <div class="card-header border-0 pt-6">
-                    <div class="card-title">
-                        <h2 class="mb-4">Mesajlar</h2>
-                    </div>
-                </div>
-                <!--end::Card header-->
+            <div class="card">
                 <!--begin::Card body-->
                 <div class="card-body py-4">
-                    <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_messages">
+                    @if($users->isEmpty())
+                        <p class="text-center text-muted">Henüz mesaj gönderen kullanıcı yok.</p>
+                    @else
+                    <div class="card-header">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
                             <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-75px">ID</th> <!-- Genişlik küçültüldü -->
-                                    <th class="min-w-125px">İsim</th>
-                                    <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Mesaj</th>
-                                    <th class="min-w-125px">Tarih</th>
-                                    <th class="min-w-125px">Cevap</th>
-                                    <th class="text-end min-w-100px">Eylemler</th>
+                                    <th class="min-w-125px">Ad</th>
+                                    <th class="min-w-125px">E-posta</th>
+                                    <th class="min-w-125px">Son Mesaj</th>
+                                    <th class="text-end min-w-100px">İşlemler</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
-                                @foreach($messages as $message)
+                                @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $message->id }}</td>
-                                    <td>{{ $message->name }}</td>
-                                    <td>{{ $message->email }}</td>
-                                    <td>{{ Str::limit($message->message, 50, '...') }}</td>
-                                    <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
-                                    <td>{{ $message->reply ?? 'Henüz yanıt verilmedi.' }}</td>
+                                    <td>{{ $user->sender->name }}</td>
+                                    <td>{{ $user->sender->email }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($user->message, 50) }}</td>
                                     <td class="text-end">
-                                        <!-- Butonları yan yana koymak için d-flex kullanılıyor -->
-                                        <div class="d-flex">
-                                            <!-- Cevapla Butonu -->
-                                            <a href="{{ route('admin.messages.reply', $message->id) }}" class="btn btn-sm btn-light me-2">
-                                                <i class="fas fa-reply"></i> Cevapla
-                                            </a>
-                                            <!-- Silme Butonu -->
-                                            <form action="{{ route('admin.messages.delete', $message->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-light text-danger">
-                                                    <i class="fas fa-trash"></i> Sil
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <a href="{{ route('admin.messages.show', $user->sender_id) }}" 
+                                            class="btn btn-sm btn-light">
+                                            Mesajları Gör
+                                        </a>
+                                        <form action="{{ route('admin.messages.destroyUserMessages', $user->sender_id) }}" 
+                                              method="POST" 
+                                              class="d-inline-block" 
+                                              onsubmit="return confirm('Bu kullanıcıya ait tüm mesajları silmek istediğinizden emin misiniz?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-light text-danger">
+                                                Tüm Mesajları Sil
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div>
-                        {{ $messages->links('pagination::bootstrap-4') }}
-                    </div>
+                    @endif
                 </div>
                 <!--end::Card body-->
             </div>
@@ -73,21 +59,4 @@
     </div>
     <!--end::Post-->
 </div>
-
-<script>
-document.querySelector('[data-kt-user-table-filter="search"]').addEventListener('input', function() {
-    let searchTerm = this.value.toLowerCase();
-    let rows = document.querySelectorAll('#kt_table_messages tbody tr');
-
-    rows.forEach(function(row) {
-        let name = row.querySelector('td').textContent.toLowerCase();
-        if (name.includes(searchTerm)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-});
-</script>
-
 @endsection

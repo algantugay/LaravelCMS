@@ -53,11 +53,6 @@
                             <div class="separator my-2"></div>
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a href="{{route('admin.profile')}}" class="menu-link px-5">Profil</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
                             <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" data-kt-menu-offset="-15px, 0">
                                 <a href="#" class="menu-link px-5">
                                     <span class="menu-title position-relative">Dil
@@ -214,7 +209,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('admin.messages')}}">
+                            <a class="menu-link" href="{{route('admin.messages.index')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

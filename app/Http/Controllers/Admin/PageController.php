@@ -33,10 +33,8 @@ class PageController extends Controller
         'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    // Diğer alanları alıyoruz
     $validated = $request->only(['title', 'content', 'status', 'category_id']);
 
-    // Resim yükleme işlemi
     if ($request->hasFile('image')) {
         $path = $request->file('image')->store('pages', 'public');
         $validated['image_path'] = $path;
@@ -68,11 +66,11 @@ class PageController extends Controller
         $validated = $request->only(['title', 'content', 'status', 'category_id',]);
     
         if ($request->hasFile('image_path')) {
-            // Eski resmi sil
+
             if ($page->image_path && Storage::disk('public')->exists($page->image_path)) {
                 Storage::disk('public')->delete($page->image_path);
             }
-            // Yeni resmi yükle
+
             $path = $request->file('image_path')->store('pages', 'public');
             $validated['image_path'] = $path;
         }

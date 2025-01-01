@@ -10,9 +10,29 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'email', 
-        'message',
-        'reply',
+        'sender_id', 
+        'receiver_id', 
+        'message', 
+        'is_read',
+        'conversation_id'
     ];
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    protected $appends = ['conversation_id'];
+
+    public function getConversationIdAttribute()
+    {
+        return $this->sender_id < $this->receiver_id 
+            ? "{$this->sender_id}-{$this->receiver_id}" 
+            : "{$this->receiver_id}-{$this->sender_id}";
+    }
 }

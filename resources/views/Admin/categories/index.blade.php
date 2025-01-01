@@ -23,7 +23,7 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_category_table">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-250px">Kategori Adı</th>
+                                    <th class="min-w-200px">Kategori Adı</th>
                                     <th class="min-w-150px">Görsel</th>
                                     <th class="text-end min-w-70px">Eylemler</th>
                                 </tr>
@@ -31,16 +31,10 @@
                             <tbody class="fw-semibold text-gray-600" id="category-tbody">
                                 @foreach ($categories as $category)
                                     <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="ms-5">
-                                                    <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1 category-name">{{ $category->name }}</span>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td>{{ $category->name }}</td>
                                         <td>
                                             @if($category->image)
-                                                <img src="{{ Storage::url($category->image) }}" alt="Kategori Resmi" width="80" height="80" style="object-fit: cover; border-radius: 5px;">
+                                                <img src="{{ Storage::url($category->image) }}" alt="Kategori Resmi" width="100" height="100" style="object-fit: cover; border-radius: 5px;">
                                             @else
                                                 <span class="text-muted">Resim Yok</span>
                                             @endif

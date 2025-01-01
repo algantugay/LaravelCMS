@@ -67,11 +67,11 @@ class CategoryController extends Controller
         $slug = $request->slug ?: Str::slug($request->name, '-');
 
         if ($request->hasFile('image')) {
-            // Eski resmi sil
+
             if ($category->image) {
                 Storage::delete($category->image);
             }
-            // Yeni resmi kaydet
+
             $imagePath = $request->file('image')->store('categories', 'public');
             $validatedData['image'] = $imagePath;
         }
