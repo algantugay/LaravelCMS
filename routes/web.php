@@ -12,10 +12,6 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Auth\TamplateController;
 use App\Http\Controllers\Auth\RegisterController;
 
-Route::get('/', function(){
-    return view('Frontend.index');
-});
-
 Route::get('/login', [TamplateController::class, 'login'])->name("login.tamplate");
 Route::get('/register', [TamplateController::class, 'register'])->name("register.tamplate");
 Route::get('/dashboard', [TamplateController::class, 'dashboard'])->name("dashboard")->middleware('user');
@@ -35,9 +31,7 @@ Route::prefix('profile')->name('profile.')->group(function () {
     Route::post('/update', [RegisterController::class, 'updateName'])->name('update');
 });
 
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-
-// Admin LOGİN
+// Admin Login
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'showLoginForm'])->name('login');
     Route::post('/', [AdminController::class, 'login'])->name('login.post');
@@ -47,32 +41,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Admin Yönetimi
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('/panel', [AdminController::class, 'index'])->name('dashboard');
-
     Route::resource('users', UserController::class);
-
     Route::resource('pages', PageController::class);
-
     Route::resource('categories', CategoryController::class);
 
+    // Kategori özel
     Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
-
-    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
-    
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');   
     Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
+    // Yorumlar
     Route::get('comments', [CommentController::class, 'index'])->name('comments.index');
-
     Route::put('comments/{id}/status', [CommentController::class, 'updateStatus'])->name('comments.updateStatus');
-
     Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
+    // Mesajlar
     Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
-
     Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('admin.messages.show');
-
     Route::post('/messages/reply', [MessageController::class, 'reply'])->name('admin.messages.reply');
-
     Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('admin.messages.destroyUserMessages');
+});
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+Route::get('/', function(){
+    return view('Frontend.index');
 });
