@@ -1,6 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\TamplateController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserController;
@@ -9,8 +10,6 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\User\TestController;
 use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Auth\TamplateController;
-use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/login', [TamplateController::class, 'login'])->name("login.tamplate");
 Route::get('/register', [TamplateController::class, 'register'])->name("register.tamplate");
