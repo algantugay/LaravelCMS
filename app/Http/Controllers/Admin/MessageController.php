@@ -47,8 +47,7 @@ class MessageController extends Controller
     
         return view('admin.messages.show', compact('messages', 'user'));
     }
-    
-    
+     
     public function reply(Request $request)
     {
         $validated = $request->validate([

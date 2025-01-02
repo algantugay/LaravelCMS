@@ -5,14 +5,34 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\User\TestController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Auth\TamplateController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function(){
     return view('Frontend.index');
+});
+
+Route::get('/login', [TamplateController::class, 'login'])->name("login.tamplate");
+Route::get('/register', [TamplateController::class, 'register'])->name("register.tamplate");
+Route::get('/dashboard', [TamplateController::class, 'dashboard'])->name("dashboard")->middleware('user');
+Route::get('overview', [TamplateController::class, 'overview'])->name("profile.overview")->middleware('user');
+Route::get('settings', [TamplateController::class, 'settings'])->name("profile.settings")->middleware('user');
+Route::get('/logout', [TamplateController::class, 'logout'])->name("logout");
+
+Route::get('/users/{id}', [RegisterController::class, 'show']);
+
+Route::post('/update-email', [RegisterController::class, 'updateEmail'])->name('update-email');
+Route::post('/update-password', [RegisterController::class, 'updatePassword'])->name('update-password');
+
+Route::post('/login', [RegisterController::class, 'loginUser'])->name('login');
+Route::post('/register', [RegisterController::class, 'registerUser'])->name('register');
+
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::post('/update', [RegisterController::class, 'updateName'])->name('update');
 });
 
 // Yorum Yönetimi
@@ -63,17 +83,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('admin.messages.show');
     Route::post('/messages/reply', [MessageController::class, 'reply'])->name('admin.messages.reply');
     Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('admin.messages.destroyUserMessages');
-});
-
-
-
-
-// TEST //
-Route::get('login', [TestController::class, 'showLoginForm'])->name('login');
-Route::post('login', [TestController::class, 'login']);
-Route::get('/logout', [TestController::class, 'logout'])->name('logout');
-
-Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
-    Route::get('messages', [TestController::class, 'index'])->name('messages.index');
-    Route::post('messages', [TestController::class, 'send'])->name('messages.send');
 });
