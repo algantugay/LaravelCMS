@@ -35,13 +35,6 @@ Route::prefix('profile')->name('profile.')->group(function () {
     Route::post('/update', [RegisterController::class, 'updateName'])->name('update');
 });
 
-// Yorum Yönetimi
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/comments', [CommentController::class, 'index'])->name('admin.comments.index');
-    Route::put('admin/comments/{id}/status', [CommentController::class, 'updateStatus'])->name('admin.comments.updateStatus');
-    Route::delete('/admin/comments/{id}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
-});
-
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
 // Admin LOGİN
@@ -54,27 +47,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-// Kullanıcı yönetimi
+// Admin Yönetimi
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::resource('users', UserController::class);
-});
 
-// Sayfa yönetimi
-Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::resource('pages', PageController::class);
-});
 
-// Kategori yönetimi
-Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
 
-    // Kategori oluşturma route'u
     Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
 
-    // Kategori düzenleme route'u
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+    
     Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::get('/admin/comments', [CommentController::class, 'index'])->name('comments.index');
+
+    Route::put('admin/comments/{id}/status', [CommentController::class, 'updateStatus'])->name('comments.updateStatus');
+
+    Route::delete('/admin/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 // İletişim
