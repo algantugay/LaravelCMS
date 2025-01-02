@@ -42,13 +42,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'showLoginForm'])->name('login');
     Route::post('/', [AdminController::class, 'login'])->name('login.post');
     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
-    Route::middleware('admin')->group(function () {
-        Route::get('/panel', [AdminController::class, 'index'])->name('dashboard');
-    });
 });
 
 // Admin Yönetimi
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::get('/panel', [AdminController::class, 'index'])->name('dashboard');
+
     Route::resource('users', UserController::class);
 
     Route::resource('pages', PageController::class);
@@ -63,17 +62,17 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
-    Route::get('/admin/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::get('comments', [CommentController::class, 'index'])->name('comments.index');
 
-    Route::put('admin/comments/{id}/status', [CommentController::class, 'updateStatus'])->name('comments.updateStatus');
+    Route::put('comments/{id}/status', [CommentController::class, 'updateStatus'])->name('comments.updateStatus');
 
-    Route::delete('/admin/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
-});
+    Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
-// İletişim
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
+
     Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('admin.messages.show');
+
     Route::post('/messages/reply', [MessageController::class, 'reply'])->name('admin.messages.reply');
+
     Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('admin.messages.destroyUserMessages');
 });
