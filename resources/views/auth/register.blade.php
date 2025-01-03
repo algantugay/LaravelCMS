@@ -120,7 +120,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Form-->
                             <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form"
                                 action="{{ route('register') }}" method="POST"
-                                data-kt-redirect-url="{{ route('login') }}" action="#">
+                                data-kt-redirect-url="{{ route('login') }}">
                                 <!--begin::Heading-->
                                 <div class="text-center mb-11">
                                     <!--begin::Title-->
