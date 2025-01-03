@@ -71,3 +71,11 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::get('/', function(){
     return view('Frontend.index');
 });
+
+Route::prefix('user')->name('user.')->middleware('auth')->group(function () {
+    // Mesajları görüntüleme
+    Route::get('/messages', [TestController::class, 'index'])->name('messages.index');
+
+    // Yeni mesaj gönderme
+    Route::post('/messages/send', [TestController::class, 'send'])->name('messages.send');
+});
