@@ -1,8 +1,8 @@
 "use strict";
-var KTSigninGeneral = function() {
+var KTSigninGeneral = function () {
     var t, e, r;
     return {
-        init: function() {
+        init: function () {
             t = document.querySelector("#kt_sign_in_form"), e = document.querySelector("#kt_sign_in_submit"), r = FormValidation.formValidation(t, {
                 fields: {
                     email: {
@@ -32,15 +32,15 @@ var KTSigninGeneral = function() {
                         eleValidClass: ""
                     })
                 }
-            }), ! function(t) {
+            }), ! function (t) {
                 try {
                     return new URL(t), !0
                 } catch (t) {
                     return !1
                 }
-            }(e.closest("form").getAttribute("action")) ? e.addEventListener("click", (function(i) {
-                i.preventDefault(), r.validate().then((function(r) {
-                    "Valid" == r ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, setTimeout((function() {
+            }(e.closest("form").getAttribute("action")) ? e.addEventListener("click", (function (i) {
+                i.preventDefault(), r.validate().then((function (r) {
+                    "Valid" == r ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, setTimeout((function () {
                         e.removeAttribute("data-kt-indicator"), e.disabled = !1, Swal.fire({
                             text: "Giriş Başarılı!",
                             icon: "success",
@@ -49,7 +49,7 @@ var KTSigninGeneral = function() {
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
-                        }).then((function(e) {
+                        }).then((function (e) {
                             if (e.isConfirmed) {
                                 t.querySelector('[name="email"]').value = "", t.querySelector('[name="password"]').value = "";
                                 var r = t.getAttribute("data-kt-redirect-url");
@@ -66,9 +66,9 @@ var KTSigninGeneral = function() {
                         }
                     })
                 }))
-            })) : e.addEventListener("click", (function(i) {
-                i.preventDefault(), r.validate().then((function(r) {
-                    "Valid" == r ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, axios.post(e.closest("form").getAttribute("action"), new FormData(t)).then((function(e) {
+            })) : e.addEventListener("click", (function (i) {
+                i.preventDefault(), r.validate().then((function (r) {
+                    "Valid" == r ? (e.setAttribute("data-kt-indicator", "on"), e.disabled = !0, axios.post(e.closest("form").getAttribute("action"), new FormData(t)).then((function (e) {
                         if (e) {
                             t.reset(), Swal.fire({
                                 text: "Giriş Başarılı !",
@@ -90,7 +90,7 @@ var KTSigninGeneral = function() {
                                 confirmButton: "btn btn-primary"
                             }
                         })
-                    })).catch((function(t) {
+                    })).catch((function (t) {
                         Swal.fire({
                             text: "Üzgünüz :( Hata yapmışsınız gibi gözüküyor, lütfen tekrar deneyin !",
                             icon: "error",
@@ -116,6 +116,6 @@ var KTSigninGeneral = function() {
         }
     }
 }();
-KTUtil.onDOMContentLoaded((function() {
+KTUtil.onDOMContentLoaded((function () {
     KTSigninGeneral.init()
 }));
