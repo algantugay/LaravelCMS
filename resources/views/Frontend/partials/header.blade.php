@@ -75,7 +75,7 @@
 
             <!--begin::Toolbar-->
             <div class="flex-equal text-end ms-1">
-                <a href="{{route('admin.login')}}" class="btn btn-success">Giriş Yap</a>
+                <a href="{{route('login.tamplate')}}" class="btn btn-success">Giriş Yap</a>
             </div>
             <!--end::Toolbar-->
         </div>

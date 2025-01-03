@@ -13,17 +13,14 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Kullanıcının ismi
-            $table->string('email'); // Kullanıcının e-posta adresi
-            $table->text('comment'); // Yorum metni
-            $table->enum('status', ['pending', 'published', 'rejected'])->default('pending'); // Yorum durumu
+            $table->string('name');
+            $table->string('email');
+            $table->text('comment');
+            $table->enum('status', ['pending', 'published', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('comments');

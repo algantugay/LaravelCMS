@@ -1,18 +1,6 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Metronic
-Product Version: 8.2.0
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
+
 <html lang="en">
-<!--begin::Head-->
 
 <head>
     <base href="../../../" />
@@ -96,15 +84,6 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Title-->
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
                     <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person
-                        they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
                 </div>
                 <!--end::Content-->
             </div>
@@ -126,17 +105,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--begin::Title-->
                                     <h1 class="text-dark fw-bolder mb-3">Kayıt Ol</h1>
                                     <!--end::Title-->
-                                    <!--begin::Subtitle-->
-                                    <div class="text-gray-500 fw-semibold fs-6">Dilediğiniz Gibi</div>
-                                    <!--end::Subtitle=-->
                                 </div>
                                 <!--begin::Heading-->
-                                <!--begin::Login options-->
-
-                                <!--end::Login options-->
-                                <!--begin::Separator-->
-
-                                <!--end::Separator-->
                                 <!--begin::Input group=-->
                                 <div class="fv-row mb-8">
                                     <!--begin::Name-->
@@ -206,17 +176,6 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Repeat Password-->
                                 </div>
                                 <!--end::Input group=-->
-                                <!--begin::Accept-->
-                                <div class="fv-row mb-8">
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="toc"
-                                            value="1" />
-                                        <span class="ms-1 link-primary">Şartları</span></span>
-                                        <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">Kabul
-                                            Ediyorum
-                                    </label>
-                                </div>
-                                <!--end::Accept-->
                                 <!--begin::Submit button-->
                                 <div class="d-grid mb-10">
                                     <button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
@@ -240,7 +199,6 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Form-->
                         </div>
                         <!--end::Wrapper-->
-
                     </div>
                     <!--end::Content-->
                 </div>
@@ -253,9 +211,6 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Root-->
     <!--end::Main-->
     <!--begin::Javascript-->
-    <script>
-        var hostUrl = "assets/";
-    </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="{{ asset('backend/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('backend/assets/js/scripts.bundle.js') }}"></script>
@@ -266,5 +221,4 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Javascript-->
 </body>
 <!--end::Body-->
-
 </html>
