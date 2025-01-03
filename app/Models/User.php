@@ -13,6 +13,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
         'role_id',
         'last_login'
@@ -40,5 +41,9 @@ class User extends Authenticatable
     public function receivedMessages()
     {
         return $this->hasMany(Message::class, 'receiver_id');
+<<<<<<< HEAD
     }
+=======
+    }
+>>>>>>> main
 }
