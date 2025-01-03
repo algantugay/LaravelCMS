@@ -60,10 +60,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     // Mesajlar
-    Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
-    Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('admin.messages.show');
-    Route::post('/messages/reply', [MessageController::class, 'reply'])->name('admin.messages.reply');
-    Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('admin.messages.destroyUserMessages');
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/reply', [MessageController::class, 'reply'])->name('messages.reply');
+    Route::delete('admin/messages/user/{user_id}', [MessageController::class, 'destroyUserMessages'])->name('messages.destroyUserMessages');
 });
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

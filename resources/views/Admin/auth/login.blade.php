@@ -128,82 +128,14 @@
 		<script src="{{asset('backend/assets/js/scripts.bundle.js')}}"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="{{asset('backend/assets/js/custom/authentication/sign-in/general.js')}}"></script>
+		<script src="{{asset('backend/assets/js/custom/authentication/sign-in/general2.js')}}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/formvalidation@1.8.1/dist/js/FormValidation.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/formvalidation@1.8.1/dist/js/plugins/Bootstrap5.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!--end::Custom Javascript-->
 		<!--end::Javascript-->
-		<script>
-			e.addEventListener("click", function(i) {
-    i.preventDefault();
-    r.validate().then(function(r) {
-        if ("Valid" == r) {
-            e.setAttribute("data-kt-indicator", "on");
-            e.disabled = true;
 
-            // Axios isteği yapalım
-            axios.post(e.closest("form").getAttribute("action"), new FormData(t))
-                .then(function(response) {
-                    e.removeAttribute("data-kt-indicator");
-                    e.disabled = false;
-
-                    // Eğer giriş başarılıysa
-                    if (response.data.success) {
-                        Swal.fire({
-                            text: "You have successfully logged in!",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        }).then(function() {
-                            window.location.href = t.getAttribute("data-kt-redirect-url");
-                        });
-                    } else {
-                        // Eğer admin değilse
-                        Swal.fire({
-                            text: response.data.error,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
-                    }
-                })
-                .catch(function(error) {
-                    e.removeAttribute("data-kt-indicator");
-                    e.disabled = false;
-
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-                });
-        } else {
-            Swal.fire({
-                text: "Sorry, looks like there are some errors detected, please try again.",
-                icon: "error",
-                buttonsStyling: false,
-                confirmButtonText: "Ok, got it!",
-                customClass: {
-                    confirmButton: "btn btn-primary"
-                }
-            });
-        }
-    });
-});
-
-		</script>
 
 	</body>
 	<!--end::Body-->
