@@ -25,10 +25,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-
-
-
-    
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
@@ -37,7 +33,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
