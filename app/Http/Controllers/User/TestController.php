@@ -33,7 +33,6 @@ class TestController extends Controller
             'message' => 'required|string|max:255',
         ]);
 
-        // Kullanıcı yalnızca Admin'e mesaj gönderebilir (receiver_id => 2)
         Message::create([
             'sender_id' => Auth::id(),
             'receiver_id' => 2, // Admin ID'si (değiştirilebilir)
@@ -42,32 +41,5 @@ class TestController extends Controller
         ]);
 
         return redirect()->route('user.messages.index')->with('success', 'Mesaj gönderildi!');
-    }
-
-    public function showLoginForm()
-    {
-        return view('User.login');
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-    
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
-    
-            return view('User.index');
-        }
-        
-        return response()->json(['error' => 'Email veya şifre hatalı.']);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
     }
 }
