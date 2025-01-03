@@ -31,11 +31,11 @@ class TamplateController extends Controller
 
     public function overview()
     {
-        return view('user.profile.overview');
+        return view('User.profile.overview');
     }
 
     public function settings()
     {
-        return view('user.profile.settings');
+        return view('User.profile.settings');
     }
 }

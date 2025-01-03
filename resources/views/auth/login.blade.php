@@ -1,16 +1,5 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Metronic
-Product Version: 8.2.0
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
+
 <html lang="en">
 <!--begin::Head-->
 
@@ -96,15 +85,6 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Title-->
                     <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
                     <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person
-                        they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
                 </div>
                 <!--end::Content-->
             </div>
@@ -120,22 +100,15 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Form-->
                             <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
                                 data-kt-redirect-url="{{ route('dashboard') }}" method="POST"
-                                action="{{ route('login') }}"> @csrf
+                                action="{{ route('login') }}">
+                                @csrf
                                 <!--begin::Heading-->
-
                                 <div style="color: green;">{{ session('success') }}</div>
-
-
                                 <div class="text-center mb-11">
                                     <!--begin::Title-->
                                     <h1 class="text-dark fw-bolder mb-3">Giriş Yap</h1>
                                     <!--end::Title-->
-                                    <!--begin::Subtitle-->
-                                    <div class="text-gray-500 fw-semibold fs-6">Dilediğin Gibi</div>
-                                    <!--end::Subtitle=-->
                                 </div>
-
-
                                 <div class="fv-row mb-8">
                                     <!--begin::Email-->
                                     <input type="text" placeholder="Email" name="email" autocomplete="off"
@@ -153,7 +126,6 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                                     <div></div>
-
                                 </div>
                                 <!--end::Wrapper-->
                                 <!--begin::Submit button-->
