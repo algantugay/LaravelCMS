@@ -11,7 +11,7 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     @if($users->isEmpty())
-                        <p class="text-center text-muted">Henüz mesaj gönderen kullanıcı yok.</p>
+                        <p class="text-center text-muted">Henüz mesaj gönderen kullanıcı yok!!</p>
                     @else
                     <div class="card-header">
                         <table class="table align-middle table-row-dashed fs-6 gy-5">
