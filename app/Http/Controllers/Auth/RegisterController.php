@@ -14,31 +14,31 @@ class RegisterController extends Controller
 {
     public function loginUser(Request $request)
     {
-        $request->validate(
-            [
-                'email' => 'required|email',
-                'password' => 'required|min:6',
-            ],
-            [
-                'email.required' => 'Email alanı zorunludur',
-                'email.email'    => 'Geçerli bir email giriniz',
-            ]
-        );
-        
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+    
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Giriş başarılı
-            return redirect()->route('dashboard');
+            $request->session()->regenerate();
+            return response()->json([
+                'success' => true,
+                'message' => 'Giriş Başarılı!',
+                'redirect' => route('dashboard')
+            ]);
         }
-
-        // Giriş başarısız
-        return response()->json(['error' => 'E-posta veya şifre hatalı.'], 401);
+        return response()->json([
+            'success' => false,
+            'message' => 'Üzgünüz, tekrar deneyin!'
+        ]);
     }
 
     public function registerUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
@@ -48,6 +48,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'name' => $request->name,
+            'role_id' => 1,
         ]);
     
         return response()->json(['message' => 'Kayıt başarılı!', 'data' => $data], 201);

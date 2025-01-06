@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade'); // Kategori bilgisi
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
             $table->text('content');
             $table->string('image_path')->nullable();
-            $table->enum('status', ['draft', 'published'])->default('draft'); // Yayın durumu
+            $table->enum('status', ['draft', 'published'])->default('draft');
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('pages');

@@ -22,7 +22,6 @@
                         <!--begin::Username-->
                         <span class="text-white fs-6 fw-bold">{{ Auth::user()->name }}</span>
                         <!--end::Username-->
-
                     </div>
                     <!--end::Info-->
                     <!--begin::User menu-->
@@ -68,8 +67,6 @@
                                     action="{{ route('dashboard') }}">Profilim</a>
                             </div>
                             <!--end::Menu item-->
-
-
 
                             <!--begin::Menu separator-->
                             <div class="separator my-2"></div>
@@ -137,7 +134,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="http://127.0.0.1:8000/overview">
+                            <a class="menu-link" href="{{route('profile.overview')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -149,7 +146,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="http://127.0.0.1:8000/settings">
+                            <a class="menu-link" href="{{route('profile.settings')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

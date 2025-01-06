@@ -1,16 +1,5 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Metronic
-Product Version: 8.2.0
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
+
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href=""/>
@@ -50,28 +39,26 @@ License: For each use you must have a valid license purchased only from above li
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
-				<!--begin::Aside-->
-				
-                @include('layouts.stillpage.sidebar')
 
+				<!--begin::Aside-->
+                @include('User.layouts.stillpage.sidebar')
 				<!--end::Aside-->
+				
 				<!--begin::Wrapper-->
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-					<!--begin::Header-->
-					
-                    @include('layouts.stillpage.header')
 
+					<!--begin::Header-->					
+                    @include('User.layouts.stillpage.header')
 					<!--end::Header-->
-					<!--begin::Content-->
-					
+
+					<!--begin::Content-->					
                     @yield('content')
-
 					<!--end::Content-->
-					<!--begin::Footer-->
-                    
-                    @include('layouts.stillpage.footer')
 
+					<!--begin::Footer-->                   
+                    @include('User.layouts.stillpage.footer')
 					<!--end::Footer-->
+					
 				</div>
 				<!--end::Wrapper-->
 			</div>
