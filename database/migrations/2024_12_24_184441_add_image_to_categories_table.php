@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('image')->nullable(); // Resim alanı ekledik
+            $table->string('image')->nullable();
         });
     }
 
