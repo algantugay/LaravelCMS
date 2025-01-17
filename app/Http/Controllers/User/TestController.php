@@ -10,15 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
+
     public function index()
     {
-        // Kullanıcıya ait gelen ve gönderilen tüm mesajları alıyoruz
-        // Ancak sadece admin ile olan mesajları alıyoruz
+        $admin = User::where('role_id', 2)->first();
+
         $messages = Message::where('receiver_id', Auth::id())
             ->orWhere('sender_id', Auth::id())
-            ->where(function ($query) {
-                $query->where('receiver_id', 2) // Admin ID'si
-                      ->orWhere('sender_id', 2); // Admin ID'si
+            ->where(function ($query) use ($admin) {
+                $query->where('receiver_id', $admin->id)
+                      ->orWhere('sender_id', $admin->id);
             })
             ->with(['sender', 'receiver'])
             ->orderBy('created_at', 'desc')
@@ -33,9 +34,11 @@ class TestController extends Controller
             'message' => 'required|string|max:255',
         ]);
 
+        $admin = User::where('role_id', 2)->first();
+
         Message::create([
             'sender_id' => Auth::id(),
-            'receiver_id' => 2, // Admin ID'si (değiştirilebilir)
+            'receiver_id' => $admin->id,
             'message' => $request->message,
             'is_read' => false,
         ]);

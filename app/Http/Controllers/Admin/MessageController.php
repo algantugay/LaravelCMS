@@ -12,13 +12,16 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $users = Message::where('receiver_id', 2)  
-                        ->with('sender')
-                        ->latest()
-                        ->get()
-                        ->groupBy('sender_id');
+        $adminId = Auth::user()->id;
     
-        $users = $users->map(function ($messages) {
+        $messages = Message::where('receiver_id', $adminId)  
+                           ->where('sender_id', '!=', $adminId)
+                           ->with('sender')
+                           ->latest()
+                           ->get()
+                           ->groupBy('sender_id');
+    
+        $users = $messages->map(function ($messages) {
             return $messages->first(); 
         });
     
@@ -27,27 +30,29 @@ class MessageController extends Controller
     
     public function show($userId)
     {
+        $adminId = Auth::user()->id;
+    
         $user = User::findOrFail($userId);
-
-        Message::where('receiver_id', 2)
+    
+        Message::where('receiver_id', $adminId)
                 ->where('sender_id', $userId)
                 ->where('is_read', 0)
                 ->update(['is_read' => 1]);
     
-        $messages = Message::where(function($query) use ($userId) {
-            $query->where('sender_id', 2)
+        $messages = Message::where(function($query) use ($userId, $adminId) {
+            $query->where('sender_id', $adminId)
                   ->where('receiver_id', $userId);
         })
-        ->orWhere(function($query) use ($userId) {
+        ->orWhere(function($query) use ($userId, $adminId) {
             $query->where('sender_id', $userId)
-                  ->where('receiver_id', 2);
+                  ->where('receiver_id', $adminId);
         })
         ->orderBy('created_at', 'asc')
         ->get();
     
         return view('admin.messages.show', compact('messages', 'user'));
     }
-     
+         
     public function reply(Request $request)
     {
         $validated = $request->validate([
@@ -55,8 +60,10 @@ class MessageController extends Controller
             'receiver_id' => 'required|exists:users,id',
         ]);
         
+        $admin_id = auth()->user()->id;
+    
         $message = new Message();
-        $message->sender_id = 2;
+        $message->sender_id = $admin_id;
         $message->receiver_id = $validated['receiver_id'];
         $message->message = $validated['message'];
         $message->conversation_id = uniqid();
@@ -68,15 +75,14 @@ class MessageController extends Controller
     
     public function destroyUserMessages($user_id)
     {
+        $adminId = Auth::user()->id;
+    
         $messages = Message::where('sender_id', $user_id)
                             ->orWhere('receiver_id', $user_id)
                             ->get();
-
-        $messages->each->delete();
     
+        $messages->each->delete();
+        
         return redirect()->route('admin.messages.index')->with('success', 'Kullanıcıya ait tüm mesajlar silindi!');
     }
-
 }
-
-

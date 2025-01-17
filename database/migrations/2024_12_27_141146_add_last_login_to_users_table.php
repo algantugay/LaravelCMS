@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('last_login')->nullable(); // null değer alabilir
+            $table->timestamp('last_login')->nullable();
         });
     }
 

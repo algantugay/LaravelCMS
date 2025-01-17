@@ -6,7 +6,7 @@
 
         <div class="messages-container mb-4 p-3" style="background-color: #f7f7f7; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-height: 450px; overflow-y: auto;" id="messages-container">
             @foreach($messages as $message)
-            @if($message->sender_id == 2)
+            @if($message->sender_id == auth()->user()->id)
                 <div class="message admin-message d-flex justify-content-end mb-2">
                     <div class="message-box" style="background-color: #13263C; color: white; padding: 10px 15px; border-radius: 5px; border: 2px solid #13263C; max-width: 70%; ">
                         <p><strong>Admin:</strong> {{ $message->message }}</p>
@@ -19,9 +19,8 @@
                     </div>
                 </div>
             @endif
-        @endforeach        
+        @endforeach           
         </div>
-
         <form action="{{ route('admin.messages.reply') }}" method="POST" class="mb-4">
             @csrf
             <input type="hidden" name="receiver_id" value="{{ $user->id }}">
