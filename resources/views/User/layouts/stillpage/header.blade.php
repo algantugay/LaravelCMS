@@ -2,8 +2,8 @@
 						<!--begin::Brand-->
 						<div class="header-brand">
 							<!--begin::Logo-->
-							<a href="../../demo8/dist/index.html">
-								<img alt="Logo" src="{{ asset('backend/assets/media/logos/default-dark.svg') }}" class="h-25px h-lg-25px" />
+							<a href="{{route('dashboard')}}">
+								<img alt="Logo" src="{{asset('backend/assets/media/logos/darkpanel.png')}}" class="h-25px h-lg-75px" />
 							</a>
 							<!--end::Logo-->
 							<!--begin::Aside minimize-->
