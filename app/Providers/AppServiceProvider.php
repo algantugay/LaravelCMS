@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('tr');
 
-        $this->createDefaultRolesAndAdmin();
+        if ($this->migrationsHaveRun()) {
+            $this->createDefaultRolesAndAdmin();
+        }
+    }
+
+    protected function migrationsHaveRun(): bool
+    {
+        try {
+            return Schema::hasTable('roles') && Schema::hasTable('users');
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     protected function createDefaultRolesAndAdmin(): void
@@ -37,7 +50,6 @@ class AppServiceProvider extends ServiceProvider
                 'email' => 'admin@example.com',
                 'password' => Hash::make('admin123'),
                 'role_id' => 2,
-                'avatar' => null,
                 'last_login' => null,
             ]);
         }
