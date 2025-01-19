@@ -84,7 +84,7 @@
                                         <div class="me-7 mb-4">
                                             <div
                                                 class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                                <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}"
+                                                <img src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}"
                                                     alt="image" />
                                             </div>
                                         </div>
@@ -148,14 +148,14 @@
                                 <div class="card-header cursor-pointer">
                                     <!--begin::Card title-->
                                     <div class="card-title m-0">
-                                        <h3 class="fw-bold m-0">Profile Details</h3>
+                                        <h3 class="fw-bold m-0">Profil Detayları</h3>
                                     </div>
                                     <!--end::Card title-->
                                     <!--begin::Action-->
                                     <a href="http://127.0.0.1:8000/settings"
                                         class="btn btn-sm btn-primary align-self-center"
                                         data-kt-redirect-url="{{ route('profile.settings') }}" method="POST"
-                                        action="{{ route('profile.overview') }}">Edit Profile</a> @csrf
+                                        action="{{ route('profile.overview') }}">Profili Düzenle</a> @csrf
                                     <!--end::Action-->
                                 </div>
                                 <!--begin::Card header-->
@@ -198,7 +198,6 @@
                                 <div class="col-xl-4">
 
                                 </div>
-
                             </div>
                             <!--end::Row-->
                         </div>

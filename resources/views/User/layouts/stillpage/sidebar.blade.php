@@ -9,7 +9,7 @@
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
-                <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}"
+                <img src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}"
                     alt="image" />
             </div>
             <!--end::Symbol-->
@@ -44,7 +44,7 @@
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
                                         <img alt="Logo"
-                                            src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}" />
+                                            src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->

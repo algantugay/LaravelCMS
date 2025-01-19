@@ -68,19 +68,18 @@ class RegisterController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
         ]);
-
+    
         // Giriş yapmış olan kullanıcıyı al
         $user = Auth::user();
-
+    
         // İsmi güncelle
         $user->name = $request->input('first_name');
-        $user->save();
-
+    
         // Profil Fotoğrafı Güncelleme Kısmı
         $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
         if ($request->hasFile('avatar')) {
             // Yeni resmi kaydet
             $path = $request->file('avatar')->store('avatars', 'public');
@@ -92,19 +91,22 @@ class RegisterController extends Controller
         
             // Yeni avatar yolunu kaydet
             $user->avatar = $path;
-        } else {
+        } elseif ($request->has('avatar_remove') && $request->avatar_remove) {
             // Avatar kaldırıldıysa
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
-        
+    
             $user->avatar = null; // Varsayılan avatar (kaldırıldı)
         }
-        
+    
+        // Kullanıcıyı kaydet
         $user->save();
-        
+    
+        // Başarı mesajı ile geri dön
         return redirect()->back()->with('success', 'Profil başarıyla güncellendi!');
     }
+    
 
     public function updateEmail(Request $request)
     {
