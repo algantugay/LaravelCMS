@@ -46,6 +46,22 @@ class CommentController extends Controller
             'email' => 'required|email|max:255',
             'comment' => 'required|string|max:500',
             'rating' => 'required|integer|between:1,5',
+        ], [
+            'name.required' => 'İsim alanı gereklidir.',
+            'name.string' => 'İsim geçerli bir metin olmalıdır.',
+            'name.max' => 'İsim en fazla 255 karakter olabilir.',
+            
+            'email.required' => 'E-posta alanı gereklidir.',
+            'email.email' => 'Lütfen geçerli bir e-posta adresi girin.',
+            'email.max' => 'E-posta en fazla 255 karakter olabilir.',
+            
+            'comment.required' => 'Yorum alanı gereklidir.',
+            'comment.string' => 'Yorum geçerli bir metin olmalıdır.',
+            'comment.max' => 'Yorum en fazla 500 karakter olabilir.',
+            
+            'rating.required' => 'Puan alanı gereklidir.',
+            'rating.integer' => 'Puan geçerli bir sayı olmalıdır.',
+            'rating.between' => 'Puan 1 ile 5 arasında olmalıdır.',
         ]);
     
         Comment::create([

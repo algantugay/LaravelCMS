@@ -15,6 +15,9 @@
                 <div class="form-group mb-3">
                     <label for="name">İsim</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $category->name) }}" required>
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group mb-3">
@@ -40,5 +43,15 @@
         </div>
     </div>
 </div>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Başarılı!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Tamam'
+        });
+    @endif
+</script>
 @endsection
 

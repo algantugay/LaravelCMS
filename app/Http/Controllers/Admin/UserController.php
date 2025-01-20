@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,6 +28,19 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6|confirmed',
             'role' => 'required|in:1,2',
+        ],
+        [
+            'name.required' => 'İsim alanı gereklidir.',
+            'name.string' => 'İsim geçerli bir metin olmalıdır.',
+            'name.max' => 'İsim en fazla 255 karakter olabilir.',
+            
+            'email.required' => 'Email alanı gereklidir.',
+            'email.email' => 'Geçerli bir email adresi girin.',
+            'email.max' => 'Email adresi en fazla 255 karakter olabilir.',
+            'email.unique' => 'Bu email adresi zaten kullanımda.',
+            
+            'password.min' => 'Şifre en az 6 karakter olmalıdır.',
+            'password.confirmed' => 'Şifreler birbiri ile uyuşmuyor.',
         ]);
 
         $user = User::findOrFail($id);
@@ -34,7 +48,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'role_id' => $request->role,
-            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'Kullanıcı başarıyla güncellendi!');

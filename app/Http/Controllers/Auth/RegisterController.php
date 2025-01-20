@@ -50,7 +50,8 @@ class RegisterController extends Controller
             'name' => $request->name,
         ]);
     
-        return response()->json(['message' => 'Kayıt başarılı!', 'data' => $data], 201);
+        Auth::login($data);
+        return redirect()->route('dashboard')->with('message', 'Kayıt başarılı!');
     }
 
     public function overview()
