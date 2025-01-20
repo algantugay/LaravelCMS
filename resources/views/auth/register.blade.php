@@ -100,6 +100,7 @@
                             <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form"
                                 action="{{ route('register') }}" method="POST"
                                 data-kt-redirect-url="{{ route('dashboard') }}" action="#">
+
                                 <!--begin::Heading-->
                                 <div class="text-center mb-11">
                                     <!--begin::Title-->
@@ -110,13 +111,13 @@
                                 <!--begin::Input group=-->
                                 <div class="fv-row mb-8">
                                     <!--begin::Name-->
-                                    <input type="text" placeholder="İsim" name="name" autocomplete="off"
+                                    <input type="text" placeholder="İsim" name="name" autocomplete="on"
                                         class="form-control bg-transparent" />
                                     <!--end::Name-->
                                 </div>
                                 <div class="fv-row mb-8">
                                     <!--begin::Email-->
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off"
+                                    <input type="text" placeholder="Email" name="email" autocomplete="on"
                                         class="form-control bg-transparent" />
                                     <!--end::Email-->
                                 </div>
@@ -221,4 +222,5 @@
     <!--end::Javascript-->
 </body>
 <!--end::Body-->
+
 </html>

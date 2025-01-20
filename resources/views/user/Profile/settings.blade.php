@@ -2,6 +2,7 @@
 
 <html lang="en">
 <!--begin::Head-->
+
 <head>
     <base href="../" />
     <title>Ayarlar</title>

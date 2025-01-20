@@ -18,6 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // 
+        // Buraya herhangi bir özel hata işleme kodu ekleyebilirsiniz.
     })
     ->create();
