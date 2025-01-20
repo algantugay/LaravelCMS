@@ -109,6 +109,7 @@ class RegisterController extends Controller
     }
 
 
+
     public function updateEmail(Request $request)
     {
         // Form doğrulama

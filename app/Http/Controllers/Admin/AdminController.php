@@ -17,9 +17,10 @@ class AdminController extends Controller
         
         $activeUserCount = User::where('last_login', '>=', now()->subDays(7))->count();
 
-        $totalMessagesCount = Message::where('receiver_id', 2)->where('sender_id', '!=', 2)->count();
+        $receiverId = auth()->id();
+        $totalMessagesCount = Message::where('receiver_id', $receiverId)->where('sender_id', '!=', $receiverId)->count();
 
-        $unreadMessagesCount = Message::where('receiver_id', 2)->where('is_read', 0)->where('sender_id', '!=', 2)->count();
+        $unreadMessagesCount = Message::where('receiver_id', $receiverId)->where('is_read', 0)->where('sender_id', '!=', $receiverId)->count();
         
         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get();
 

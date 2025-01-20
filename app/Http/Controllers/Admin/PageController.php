@@ -31,6 +31,17 @@ class PageController extends Controller
         'status' => 'required|in:draft,published',
         'category_id' => 'required|exists:categories,id',
         'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ],[
+        'title.required' => 'Başlık alanı gereklidir.',
+        'title.string' => 'Başlık geçerli bir metin olmalıdır.',
+        'title.max' => 'Başlık 255 karakteri geçemez.',
+        'content.required' => 'İçerik alanı gereklidir.',
+        'content.string' => 'İçerik geçerli bir metin olmalıdır.',
+        'status.required' => 'Durum seçilmelidir.',
+        'status.in' => 'Geçersiz durum değeri. Geçerli değerler: taslak, yayımlandı.',
+        'image_path.image' => 'Yalnızca resim dosyaları kabul edilir.',
+        'image_path.mimes' => 'Geçersiz dosya formatı. Sadece jpeg, png, jpg, gif dosyaları kabul edilir.',
+        'image_path.max' => 'Resim dosyası maksimum 2MB olmalıdır.',
     ]);
 
     $validated = $request->only(['title', 'content', 'status', 'category_id']);
@@ -60,6 +71,17 @@ class PageController extends Controller
             'status' => 'required|in:draft,published',
             'category_id' => 'required|exists:categories,id',
             'image_path' => 'nullable|image|max:2048',
+        ],[
+            'title.required' => 'Başlık alanı gereklidir.',
+            'title.string' => 'Başlık geçerli bir metin olmalıdır.',
+            'title.max' => 'Başlık 255 karakteri geçemez.',
+            'content.required' => 'İçerik alanı gereklidir.',
+            'content.string' => 'İçerik geçerli bir metin olmalıdır.',
+            'status.required' => 'Durum seçilmelidir.',
+            'status.in' => 'Geçersiz durum değeri. Geçerli değerler: taslak, yayımlandı.',
+            'image_path.image' => 'Yalnızca resim dosyaları kabul edilir.',
+            'image_path.mimes' => 'Geçersiz dosya formatı. Sadece jpeg, png, jpg, gif dosyaları kabul edilir.',
+            'image_path.max' => 'Resim dosyası maksimum 2MB olmalıdır.',
         ]);
     
         $page = Page::find($id);

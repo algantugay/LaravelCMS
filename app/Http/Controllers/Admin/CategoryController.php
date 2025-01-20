@@ -29,23 +29,32 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Kategori adı boş bırakılamaz.',
+            'name.string' => 'Kategori adı geçerli bir metin olmalıdır.',
+            'name.max' => 'Kategori adı en fazla 255 karakter olabilir.',
+            'slug.max' => 'Slug alanı en fazla 255 karakter olabilir.',
+            'image.image' => 'Resim dosyası olmalıdır.',
+            'image.mimes' => 'Resim sadece jpeg, png, jpg veya gif formatında olmalıdır.',
+            'image.max' => 'Resim dosyası en fazla 2MB olabilir.',
         ]);
     
         $slug = $request->slug ?: Str::slug($request->name, '-');
-
+    
         $imagePath = null;
-
+    
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('categories', 'public');
         }
     
-        $category = Category::create([
+        Category::create([
             'name' => $request->name,
             'slug' => $slug,
             'image' => $imagePath,
         ]);
     
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla eklendi.');
+        return redirect()->route('admin.categories.index')
+                         ->with('success', 'Kategori başarıyla eklendi!');
     }
 
     public function edit($id)
@@ -57,35 +66,44 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-
+    
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Kategori adı boş bırakılamaz.',
+            'name.string' => 'Kategori adı geçerli bir metin olmalıdır.',
+            'name.max' => 'Kategori adı en fazla 255 karakter olabilir.',
+            'slug.max' => 'Slug alanı en fazla 255 karakter olabilir.',
+            'image.image' => 'Resim dosyası olmalıdır.',
+            'image.mimes' => 'Resim sadece jpeg, png, jpg veya gif formatında olmalıdır.',
+            'image.max' => 'Resim dosyası en fazla 2MB olabilir.',
         ]);
-
+    
         $slug = $request->slug ?: Str::slug($request->name, '-');
-
+    
         if ($request->hasFile('image')) {
-
             if ($category->image) {
                 Storage::delete($category->image);
             }
-
+    
             $imagePath = $request->file('image')->store('categories', 'public');
             $validatedData['image'] = $imagePath;
         }
-
+    
         $category->update($validatedData);
-
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla güncellendi.');
+    
+        return redirect()->route('admin.categories.index')
+                         ->with('success', 'Kategori başarıyla güncellendi!');
     }
 
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
-
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla silindi.');
+    
+        return redirect()->route('admin.categories.index')
+                         ->with('success', 'Kategori başarıyla silindi!');
     }
 }

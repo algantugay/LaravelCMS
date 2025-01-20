@@ -9,7 +9,7 @@
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
-                <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}"
+                <img src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}"
                     alt="image" />
             </div>
             <!--end::Symbol-->
@@ -44,7 +44,7 @@
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
                                         <img alt="Logo"
-                                            src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}" />
+                                            src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
@@ -112,7 +112,6 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
@@ -161,7 +160,41 @@
                 </div>
                 <!--end:Menu item-->
 
-
+                <!--begin:Menu item-->
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <!--begin:Menu link-->
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-sms fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Gelen Kutusu</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <!--end:Menu link-->
+                    <!--begin:Menu sub-->
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="{{ route('user.messages.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Mesajlar</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                    </div>
+                    <!--end:Menu sub-->
+                </div>
+                <!--end:Menu item-->
             </div>
             <!--end::Menu-->
         </div>

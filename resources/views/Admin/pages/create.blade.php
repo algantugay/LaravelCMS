@@ -25,7 +25,7 @@
                 <!-- Başlık -->
                 <div class="form-group mb-3">
                     <label for="title" class="form-label">Başlık</label>
-                    <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" required>
+                    <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">
                     @error('title')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const form = document.querySelector('#pageForm');
     const contentInput = document.querySelector('#content');
+    const titleInput = document.querySelector('#title');
 
     form.addEventListener('submit', function(e) {
         // CKEditor'dan gelen içeriği textarea'ya yaz
@@ -92,15 +93,29 @@ document.addEventListener('DOMContentLoaded', function() {
             contentInput.value = contentEditor.getData();
         }
 
-        // Eğer içerik boşsa, form gönderimini engelle
-        if (!contentInput.value.trim()) {
-            e.preventDefault();
-            alert('İçerik alanı boş olamaz!');
+        // Başlık ve İçerik alanlarının kontrolü
+        if (!titleInput.value.trim()) {
+            e.preventDefault(); // Formun gönderilmesini engelle
+            alert('Başlık alanı boş olamaz!'); // Başlık uyarısı
+        } else if (!contentInput.value.trim()) {
+            e.preventDefault(); // Formun gönderilmesini engelle
+            alert('İçerik alanı boş olamaz!'); // İçerik uyarısı
         }
     });
 });
+
 </script>
 <script src="{{ asset('backend/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('backend/assets/js/scripts.bundle.js') }}"></script>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Başarılı!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Tamam'
+        });
+    @endif
+</script>
 @endsection

@@ -73,4 +73,14 @@
     <!--end::Post-->
 </div>
 
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Başarılı!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Tamam'
+        });
+    @endif
+</script>
 @endsection

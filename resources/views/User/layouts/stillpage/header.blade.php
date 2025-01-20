@@ -2,9 +2,8 @@
     <!--begin::Brand-->
     <div class="header-brand">
         <!--begin::Logo-->
-        <a href={{ route('dashboard') }}>
-            <img alt="Logo" src="{{ asset('backend/assets/media/logos/default-dark.svg') }}"
-                class="h-25px h-lg-25px" />
+        <a href="{{ route('dashboard') }}">
+            <img alt="Logo" src="{{ asset('backend/assets/media/logos/darkpanel.png') }}" class="h-25px h-lg-75px" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside minimize-->
@@ -41,16 +40,31 @@
             <!--begin::Page title-->
             <div class="page-title d-flex justify-content-center flex-column me-5">
                 <!--begin::Title-->
-                <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">@yield('title')</h1>
+                <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Dashboard</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href={{ route('dashboard') }}></a>
+                        <a href="../../demo8/dist/index.html" class="text-muted text-hover-primary">Home</a>
                     </li>
                     <!--end::Item-->
-
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Dashboards</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-dark">Default</li>
+                    <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
