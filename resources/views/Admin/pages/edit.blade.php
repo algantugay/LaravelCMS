@@ -93,4 +93,14 @@
 <script src="{{ asset('backend/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('backend/assets/js/scripts.bundle.js') }}"></script>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Başarılı!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Tamam'
+        });
+    @endif
+</script>
 @endsection

@@ -4,11 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Schema;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,40 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('tr');
 
-        if ($this->migrationsHaveRun()) {
-            $this->createDefaultRolesAndAdmin();
-        }
     }
-
-    protected function migrationsHaveRun(): bool
-    {
-        try {
-            return Schema::hasTable('roles') && Schema::hasTable('users');
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    protected function createDefaultRolesAndAdmin(): void
-    {
-        if (Role::count() === 0) {
-            Role::insert([
-                ['id' => 1, 'role' => 'user', 'created_at' => now(), 'updated_at' => now()],
-                ['id' => 2, 'role' => 'admin', 'created_at' => now(), 'updated_at' => now()],
-            ]);
-        }
-
-        if (!User::where('email', 'admin@example.com')->exists()) {
-            User::create([
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => Hash::make('admin123'),
-                'role_id' => 2,
-                'last_login' => null,
-            ]);
-        }
-    }
-
     protected $listen = [
         \Illuminate\Auth\Events\Login::class => [
             \App\Listeners\UpdateLastLogin::class,

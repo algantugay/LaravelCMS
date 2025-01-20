@@ -20,6 +20,9 @@
                     <label for="name" class="form-label">İsim</label>
                     <input type="text" name="name" id="name" class="form-control" 
                            value="{{ old('name', $user->name) }}" required>
+                                @if ($errors->has('name'))
+                                    <div class="text-danger">{{ $errors->first('name') }}</div>
+                                @endif
                 </div>
 
                 <!-- Email -->
@@ -27,12 +30,18 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control" 
                            value="{{ old('email', $user->email) }}" required>
+                                @if ($errors->has('email'))
+                                    <div class="text-danger">{{ $errors->first('email') }}</div>
+                                @endif
                 </div>
 
                 <!-- Şifre -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Şifre (Opsiyonel)</label>
                     <input type="password" name="password" id="password" class="form-control">
+                                @if ($errors->has('password'))
+                                    <div class="text-danger">{{ $errors->first('password') }}</div>
+                                @endif
                 </div>
 
                 <!-- Şifre Onayı -->
@@ -57,4 +66,14 @@
         </div>
     </div>
 </div>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            title: 'Başarılı!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonText: 'Tamam'
+        });
+    @endif
+</script>
 @endsection
