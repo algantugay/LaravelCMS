@@ -68,7 +68,7 @@
             <!--begin::Aside-->
 
             @include('User.layouts.stillpage.sidebar')
-            @section('title', 'Genel Bakış')
+
             <!--end::Aside-->
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
@@ -163,11 +163,7 @@
                                     <a href="http://127.0.0.1:8000/settings"
                                         class="btn btn-sm btn-primary align-self-center"
                                         data-kt-redirect-url="{{ route('profile.settings') }}" method="POST"
-<<<<<<< HEAD
-                                        action="{{ route('profile.overview') }}">Profili Güncelle</a> @csrf
-=======
                                         action="{{ route('profile.overview') }}">Profili Düzenle</a> @csrf
->>>>>>> main
                                     <!--end::Action-->
                                 </div>
                                 <!--begin::Card header-->
