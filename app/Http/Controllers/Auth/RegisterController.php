@@ -18,7 +18,7 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-    
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -42,16 +42,16 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
-    
+
         // Veritabanına yeni kullanıcı kaydetme
         $data = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'name' => $request->name,
-            'role_id' => 1,
         ]);
-    
-        return response()->json(['message' => 'Kayıt başarılı!', 'data' => $data], 201);
+
+        Auth::login($data);
+        return redirect()->route('dashboard')->with('message', 'Kayıt başarılı!');
     }
 
     public function overview()
@@ -75,7 +75,6 @@ class RegisterController extends Controller
 
         // İsmi güncelle
         $user->name = $request->input('first_name');
-        $user->save();
 
         // Profil Fotoğrafı Güncelleme Kısmı
         $request->validate([
@@ -85,27 +84,30 @@ class RegisterController extends Controller
         if ($request->hasFile('avatar')) {
             // Yeni resmi kaydet
             $path = $request->file('avatar')->store('avatars', 'public');
-        
+
             // Eski resmi sil
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
-        
+
             // Yeni avatar yolunu kaydet
             $user->avatar = $path;
-        } else {
+        } elseif ($request->has('avatar_remove') && $request->avatar_remove) {
             // Avatar kaldırıldıysa
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
-        
+
             $user->avatar = null; // Varsayılan avatar (kaldırıldı)
         }
-        
+
+        // Kullanıcıyı kaydet
         $user->save();
-        
+
+        // Başarı mesajı ile geri dön
         return redirect()->back()->with('success', 'Profil başarıyla güncellendi!');
     }
+
 
     public function updateEmail(Request $request)
     {

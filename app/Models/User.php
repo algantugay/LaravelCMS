@@ -16,7 +16,7 @@ class User extends Authenticatable
         'avatar',
         'password',
         'role_id',
-        'last_login'
+        'last_login',
     ];
 
     protected $hidden = [
@@ -29,10 +29,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    protected $casts = [
-        'password' => 'hashed',
-    ];
-
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');
@@ -41,5 +37,5 @@ class User extends Authenticatable
     public function receivedMessages()
     {
         return $this->hasMany(Message::class, 'receiver_id');
-    }
+    }
 }

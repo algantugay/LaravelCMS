@@ -2,6 +2,7 @@
 
 <html lang="en">
 <!--begin::Head-->
+
 <head>
     <base href="../" />
     <title>Ayarlar</title>
@@ -91,7 +92,7 @@
                                         <div class="me-7 mb-4">
                                             <div
                                                 class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                                <img src="{{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }}"
+                                                <img src="{{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }}"
                                                     alt="image" />
                                             </div>
                                         </div>
@@ -173,7 +174,7 @@
                                     aria-expanded="true" aria-controls="kt_account_profile_details">
                                     <!--begin::Card title-->
                                     <div class="card-title m-0">
-                                        <h3 class="fw-bold m-0">Profile Details</h3>
+                                        <h3 class="fw-bold m-0">Profil Detayları</h3>
                                     </div>
                                     <!--end::Card title-->
                                 </div>
@@ -200,7 +201,7 @@
                                                         style="background-image: url('{{ asset('backend/assets/media') }}/svg/avatars/blank.svg')">
                                                         <!--begin::Preview existing avatar-->
                                                         <div class="image-input-wrapper w-125px h-125px"
-                                                            style="background-image: url({{ Auth::check() && Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('backend/assets/media/avatars/blank.png') }})">
+                                                            style="background-image: url({{ Auth::check() && Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('backend/assets/media/avatars/blank.png') }})">
                                                         </div>
                                                         <!--end::Preview existing avatar-->
                                                         <!--begin::Label-->
@@ -209,13 +210,13 @@
                                                         <label
                                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                             data-kt-image-input-action="change"
-                                                            data-bs-toggle="tooltip" title="Change avatar">
+                                                            data-bs-toggle="tooltip" title="Avatarı Değiştir">
                                                             <i class="ki-duotone ki-pencil fs-7">
                                                                 <span class="path1"></span>
                                                                 <span class="path2"></span>
                                                             </i>
                                                             <!--begin::Inputs-->
-                                                            <input type="file" name="profile_image"
+                                                            <input type="file" name="avatar"
                                                                 accept=".png, .jpg, .jpeg" />
                                                             <input type="hidden" name="avatar_remove" />
                                                             <!--end::Inputs-->
@@ -246,7 +247,7 @@
                                                     </div>
                                                     <!--end::Image input-->
                                                     <!--begin::Hint-->
-                                                    <div class="form-text">Allowed file types: png, jpg, jpeg.
+                                                    <div class="form-text">İzin verilen dosya türleri: png, jpg, jpeg.
                                                     </div>
                                                     <!--end::Hint-->
 
