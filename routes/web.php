@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TamplateController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\User\TestController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 
 Route::get('/login', [TamplateController::class, 'login'])->name("login.tamplate");
@@ -25,14 +33,7 @@ Route::prefix('profile')->name('profile.')->group(function () {
     Route::post('/update', [RegisterController::class, 'updateName'])->name('update');
 });
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\PageController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CommentController;
-use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\User\TestController;
-use App\Http\Controllers\Frontend\FrontendController;
+
 
 // Admin Login
 Route::prefix('admin')->name('admin.')->group(function () {
